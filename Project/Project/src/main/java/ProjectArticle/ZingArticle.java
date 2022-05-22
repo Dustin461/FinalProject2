@@ -1,3 +1,20 @@
+/*
+    RMIT University Vietnam
+    Course: INTE2512 Object-Oriented Programming
+    Semester: 2021B
+    Assessment: Final Project
+    Author:
+    - Pham Duy Anh - s3802674
+    - Pham Dang Khoa - s3884419
+    - Nguyen Minh Hien - s3877996
+    - Nathan Candre - s3938364
+    Acknowledgement:
+    [1]: https://jsoup.org/cookbook/extracting-data/selector-syntax
+    [2]: https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ThreadPoolExecutor.html
+    [3]: https://www.tutorialspoint.com/javafx/javafx_css.htm
+    [4]: https://www.javatpoint.com/javafx-playing-video
+    [5] All lecture and lab slides from RMIT univeristy
+*/
 package ProjectArticle;
 
 import Main.Main;
@@ -59,11 +76,11 @@ public class ZingArticle extends Application {
                 //Set original category of the article
                 zingArticleList.get(i).setPageCategory(pageCategoryOfArticle.get(i).text());
                 //Set date of the article
-                //String date = Helper.timeToUnixString3(dateOfArticle.get(i).select("span.date").text() + " " +
+                //String date = Helper.convertTime1(dateOfArticle.get(i).select("span.date").text() + " " +
                         //dateOfArticle.get(i).select("span.time").text());
                 //zingArticleList.get(i).setDate(date);
                 //Set time duration of the article
-                //zingArticleList.get(i).setTimeDuration(Helper.timeDiff(date));
+                //zingArticleList.get(i).setTimeDuration(Helper.getConvertedTimeDuration(date));
                 zingArticleList.get(i).setTimeDuration(dateOfArticle.get(i).select("span.friendly-time").text());
                 //Set thumbnail image of the article
                 if (thumbnail.get(i).hasAttr("data-src"))
@@ -101,11 +118,11 @@ public class ZingArticle extends Application {
                 //Set category of the article
                 listOfSearchArticle.get(i).setCategory(category);
                 //Set date and time of the article
-                String date = Helper.timeToUnixString3(articles.get(i).select("p.article-meta span.date").text() + " " +
+                String date = Helper.convertTime1(articles.get(i).select("p.article-meta span.date").text() + " " +
                         articles.get(i).select("p.article-meta span.time").text());
                 listOfSearchArticle.get(i).setDate(date);
                 //Set time duration of the article
-                listOfSearchArticle.get(i).setTimeDuration(Helper.timeDiff(date));
+                listOfSearchArticle.get(i).setTimeDuration(Helper.getConvertedTimeDuration(date));
                 //Set thumbnail image of the article
                 listOfSearchArticle.get(i).setThumbnail(articles.get(i).select("p.article-thumbnail img").attr("abs:data-src"));
                 //Set description of the article

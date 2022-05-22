@@ -1,3 +1,20 @@
+/*
+    RMIT University Vietnam
+    Course: INTE2512 Object-Oriented Programming
+    Semester: 2021B
+    Assessment: Final Project
+    Author:
+    - Pham Duy Anh - s3802674
+    - Pham Dang Khoa - s3884419
+    - Nguyen Minh Hien - s3877996
+    - Nathan Candre - s3938364
+    Acknowledgement:
+    [1]: https://jsoup.org/cookbook/extracting-data/selector-syntax
+    [2]: https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ThreadPoolExecutor.html
+    [3]: https://www.tutorialspoint.com/javafx/javafx_css.htm
+    [4]: https://www.javatpoint.com/javafx-playing-video
+    [5] All lecture and lab slides from RMIT univeristy
+*/
 package ProjectArticle;
 
 import javafx.application.Application;
@@ -22,27 +39,9 @@ import org.jsoup.select.Selector;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 
 public class NhanDanArticle extends Application {
-
-
-    /*
-    public static void main(String[] args) throws IOException {
-        ArrayList<Article> testList = getListOfElementsInNhanDan("https://nhandan.vn/vanhoa", "Others");
-        testList.addAll(NhanDanArticle.getListOfElementsInNhanDan("https://nhandan.vn/xahoi", "Others"));
-        testList.addAll(NhanDanArticle.getListOfElementsInNhanDan("https://nhandan.vn/du-lich", "Others"));
-        testList.addAll(NhanDanArticle.getListOfElementsInNhanDan("https://nhandan.vn/giaoduc", "Others"));
-        testList.addAll(NhanDanArticle.getListOfElementsInNhanDan("https://nhandan.vn/moi-truong", "Others"));
-        System.out.println(testList);
-        for (Article article:testList) {
-            System.out.println(article.getDescription());
-        }
-        //launch(args);
-    }
-     */
-
     public static ArrayList<Article> getListOfElementsInNhanDan(String url, String category) throws IOException{
         ArrayList<Article> nhanDanArticleList = new ArrayList<>();
 
@@ -72,10 +71,10 @@ public class NhanDanArticle extends Application {
                 nhanDanArticleList.get(i).setCategory(category);
                 //Set date of the article
                 if(date.get(j).hasText()) {
-                    nhanDanArticleList.get(i).setDate(Helper.timeToUnixString5(date.get(j).text()));
+                    nhanDanArticleList.get(i).setDate(Helper.convertTime3(date.get(j).text()));
                 }
                 //Set time duration of the article
-                nhanDanArticleList.get(i).setTimeDuration(Helper.timeDiff(Helper.timeToUnixString5(date.get(j).text())));
+                nhanDanArticleList.get(i).setTimeDuration(Helper.getConvertedTimeDuration(Helper.convertTime3(date.get(j).text())));
                 //Set thumbnail of the article
                 nhanDanArticleList.get(i).setThumbnail(thumbnail.get(j).select("img").attr("data-src"));
                 //Set link of the article
@@ -120,9 +119,9 @@ public class NhanDanArticle extends Application {
                 //Set category for article
                 nhanDanSearchArticleList.get(i).setCategory(category);
                 //Set date for article
-                if(date.get(j).hasText()) nhanDanSearchArticleList.get(i).setDate(Helper.timeToUnixString5(date.get(j).text()));
+                if(date.get(j).hasText()) nhanDanSearchArticleList.get(i).setDate(Helper.convertTime3(date.get(j).text()));
                 //Set time duration for article
-                nhanDanSearchArticleList.get(i).setTimeDuration(Helper.timeDiff(Helper.timeToUnixString5(date.get(j).text())));
+                nhanDanSearchArticleList.get(i).setTimeDuration(Helper.getConvertedTimeDuration(Helper.convertTime3(date.get(j).text())));
                 //Set thumbnail for article
                 nhanDanSearchArticleList.get(i).setThumbnail(thumbnail.get(j).attr("abs:data-src"));
                 //Set link for article
@@ -139,18 +138,7 @@ public class NhanDanArticle extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        // Testing
-        ArrayList<Article> testList = getListOfElementsInNhanDan("https://nhandan.vn", "Newest");
-        System.out.println(testList);
-        Article testArticle = testList.get(4); //<--- Set article index here
-        VBox articlePage = new VBox();
-        displayNhanDanArticle(testArticle, articlePage);
-        ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setContent(articlePage);
-        scrollPane.setStyle("-fx-background: #000000; -fx-border-color: #000000;");
-        Scene scene = new Scene(scrollPane, 1300, 800);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        
     }
 
     public static void displayNhanDanArticle(Article article, VBox vbox) throws IOException {

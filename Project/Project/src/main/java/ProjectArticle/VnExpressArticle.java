@@ -1,3 +1,20 @@
+/*
+    RMIT University Vietnam
+    Course: INTE2512 Object-Oriented Programming
+    Semester: 2021B
+    Assessment: Final Project
+    Author:
+    - Pham Duy Anh - s3802674
+    - Pham Dang Khoa - s3884419
+    - Nguyen Minh Hien - s3877996
+    - Nathan Candre - s3938364
+    Acknowledgement:
+    [1]: https://jsoup.org/cookbook/extracting-data/selector-syntax
+    [2]: https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ThreadPoolExecutor.html
+    [3]: https://www.tutorialspoint.com/javafx/javafx_css.htm
+    [4]: https://www.javatpoint.com/javafx-playing-video
+    [5] All lecture and lab slides from RMIT univeristy
+*/
 package ProjectArticle;
 
 import javafx.application.Application;
@@ -19,7 +36,6 @@ import org.jsoup.select.Selector;
 import javafx.scene.text.*;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.ArrayList;
 
 public class VnExpressArticle extends Application {
@@ -66,13 +82,13 @@ public class VnExpressArticle extends Application {
                 //Set title for each article
                 VnExpressNewestList.get(i).setTitle(articles.get(i).select("title").text());
                 //Set date for each article
-                VnExpressNewestList.get(i).setDate(Helper.timeToUnixString2(articles.get(i).select("pubDate").text()));
+                VnExpressNewestList.get(i).setDate(Helper.convertTime2(articles.get(i).select("pubDate").text()));
                 //Set source for each article
                 VnExpressNewestList.get(i).setSource("VNEXPRESS.NET");
                 //Set category for each article
                 VnExpressNewestList.get(i).setCategory(category);
                 //Set time duration for each article
-                VnExpressNewestList.get(i).setTimeDuration(Helper.timeDiff(VnExpressNewestList.get(i).getDate()));
+                VnExpressNewestList.get(i).setTimeDuration(Helper.getConvertedTimeDuration(VnExpressNewestList.get(i).getDate()));
                 //Set link for each article
                 VnExpressNewestList.get(i).setLinkToArticle(articles.get(i).select("link").text());
             }

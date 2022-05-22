@@ -1,3 +1,20 @@
+/*
+    RMIT University Vietnam
+    Course: INTE2512 Object-Oriented Programming
+    Semester: 2021B
+    Assessment: Final Project
+    Author:
+    - Pham Duy Anh - s3802674
+    - Pham Dang Khoa - s3884419
+    - Nguyen Minh Hien - s3877996
+    - Nathan Candre - s3938364
+    Acknowledgement:
+    [1]: https://jsoup.org/cookbook/extracting-data/selector-syntax
+    [2]: https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ThreadPoolExecutor.html
+    [3]: https://www.tutorialspoint.com/javafx/javafx_css.htm
+    [4]: https://www.javatpoint.com/javafx-playing-video
+    [5] All lecture and lab slides from RMIT univeristy
+*/
 package ProjectArticle;
 
 import java.util.Date;
@@ -30,16 +47,16 @@ public class Article {
   }
 
   public Article(){
-    setDate("");
-    setTitle("");
-    setTimeDuration("");
-    setPageCategory("");
-    setLinkToArticle("");
-    setCategory("");
-    setDescription("");
-    setSource("");
-    setAuthor("");
-    setThumbnail("");
+    this.date = "";
+    this.title = "";
+    this.timeDuration = "";
+    this.pageCategory = "";
+    this.linkToArticle = "";
+    this.category = "";
+    this.description = "";
+    this.source = "";
+    this.author = "";
+    this.thumbnail = "";
   }
 
   //Setter
@@ -76,37 +93,33 @@ public class Article {
 
   //Getter
   public String getDate() {
-    return date;
+    return this.date;
   }
   public String getTimeDuration() {
-    return timeDuration;
+    return this.timeDuration;
   }
   public String getTitle() {
-    return title;
+    return this.title;
   }
   public String getPageCategory() {
-    return pageCategory;
+    return this.pageCategory;
   }
   public String getLinkToArticle() {
-    return linkToArticle;
+    return this.linkToArticle;
   }
   public String getCategory() {
-    return category;
+    return this.category;
   }
   public String getDescription() {
-    return description;
+    return this.description;
   }
   public String getSource() {
-    return source;
+    return this.source;
   }
   public String getAuthor() {
-    return author;
-  }
-  public String toString() {
-
-    return getTitle();
+    return this.author;
   }
   public String getThumbnail() {
-    return thumbnail;
+    return this.thumbnail;
   }
 }

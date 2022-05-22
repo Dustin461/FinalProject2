@@ -1,3 +1,20 @@
+/*
+    RMIT University Vietnam
+    Course: INTE2512 Object-Oriented Programming
+    Semester: 2021B
+    Assessment: Final Project
+    Author:
+    - Pham Duy Anh - s3802674
+    - Pham Dang Khoa - s3884419
+    - Nguyen Minh Hien - s3877996
+    - Nathan Candre - s3938364
+    Acknowledgement:
+    [1]: https://jsoup.org/cookbook/extracting-data/selector-syntax
+    [2]: https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ThreadPoolExecutor.html
+    [3]: https://www.tutorialspoint.com/javafx/javafx_css.htm
+    [4]: https://www.javatpoint.com/javafx-playing-video
+    [5] All lecture and lab slides from RMIT univeristy
+*/
 package ProjectArticle;
 
 import javafx.application.Application;
@@ -49,10 +66,10 @@ public class TuoiTreArticle extends Application {
                     // Add category
                     tuoitreArticleList.get(i).setCategory(category);
                     // Add date&time
-                    String date = Helper.timeToUnixString3(getTTArticleDate("http://tuoitre.vn" + titleAndLink.get(i).attr("href")));
-                    tuoitreArticleList.get(i).setDate(Helper.unixToTime(date).substring(0, 16));
+                    String date = Helper.convertTime1(getTTArticleDate("http://tuoitre.vn" + titleAndLink.get(i).attr("href")));
+                    tuoitreArticleList.get(i).setDate(Helper.formatTime(date).substring(0, 16));
                     // Add time duration
-                    tuoitreArticleList.get(i).setTimeDuration(Helper.timeDiff(date));
+                    tuoitreArticleList.get(i).setTimeDuration(Helper.getConvertedTimeDuration(date));
                     // Add thumbnail
                     if (thumbNail.get(i).hasAttr("data-src"))
                         tuoitreArticleList.get(i).setThumbnail(thumbNail.get(i).attr("abs:data-src"));
@@ -86,10 +103,10 @@ public class TuoiTreArticle extends Application {
                     // Add category
                     tuoitreArticleList.get(i).setPageCategory(category);
                     // Add date&time
-                    String date = Helper.timeToUnixString3(getTTArticleDate("http://tuoitre.vn" + titleAndLink.get(i).attr("href")));
-                    tuoitreArticleList.get(i).setDate(Helper.unixToTime(date).substring(0, 16));
+                    String date = Helper.convertTime1(getTTArticleDate("http://tuoitre.vn" + titleAndLink.get(i).attr("href")));
+                    tuoitreArticleList.get(i).setDate(Helper.formatTime(date).substring(0, 16));
                     // Add time duration
-                    tuoitreArticleList.get(i).setTimeDuration(Helper.timeDiff(date));
+                    tuoitreArticleList.get(i).setTimeDuration(Helper.getConvertedTimeDuration(date));
                     // Add thumbnail
                     if (thumbNail.get(i).hasAttr("data-src"))
                         tuoitreArticleList.get(i).setThumbnail(thumbNail.get(i).attr("abs:data-src"));
@@ -139,10 +156,10 @@ public class TuoiTreArticle extends Application {
                 // Add category
                 listOfSearchArticle.get(i).setCategory(category);
                 // Add date&time
-                String date = Helper.timeToUnixString3(getTTArticleDate("http://tuoitre.vn" + titleAndLink.get(i).attr("href")));
-                listOfSearchArticle.get(i).setDate(Helper.unixToTime(date).substring(0, 16));
+                String date = Helper.convertTime1(getTTArticleDate("http://tuoitre.vn" + titleAndLink.get(i).attr("href")));
+                listOfSearchArticle.get(i).setDate(Helper.formatTime(date).substring(0, 16));
                 // Add time duration
-                listOfSearchArticle.get(i).setTimeDuration(Helper.timeDiff(date));
+                listOfSearchArticle.get(i).setTimeDuration(Helper.getConvertedTimeDuration(date));
                 // Add thumbnail
                 if (thumbNail.get(i).hasAttr("data-src"))
                     listOfSearchArticle.get(i).setThumbnail(thumbNail.get(i).attr("abs:data-src"));

@@ -1,3 +1,20 @@
+/*
+    RMIT University Vietnam
+    Course: INTE2512 Object-Oriented Programming
+    Semester: 2021B
+    Assessment: Final Project
+    Author:
+    - Pham Duy Anh - s3802674
+    - Pham Dang Khoa - s3884419
+    - Nguyen Minh Hien - s3877996
+    - Nathan Candre - s3938364
+    Acknowledgement:
+    [1]: https://jsoup.org/cookbook/extracting-data/selector-syntax
+    [2]: https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ThreadPoolExecutor.html
+    [3]: https://www.tutorialspoint.com/javafx/javafx_css.htm
+    [4]: https://www.javatpoint.com/javafx-playing-video
+    [5] All lecture and lab slides from RMIT univeristy
+*/
 package ProjectController;
 
 import ProjectArticle.*;
@@ -185,8 +202,6 @@ public class HomeSceneController implements Initializable {
         // Setup for layout controller
         // Setup fxml loader
 
-        /* NEED TO CHANGE THE PATH --https://edencoding.com/where-to-put-resource-files-in-javafx/ */
-
         FXMLLoader loader = new FXMLLoader(HomeSceneController.class.getResource("/ProjectController/Layout.fxml"));
 
         // Get the vbox root of the layout.fxml
@@ -238,7 +253,7 @@ public class HomeSceneController implements Initializable {
         stackPane2.setVisible(false);
         stackPane1.getChildren().add(stackPane2);
     }
-
+    //Display the newest list on a borderpane
     public void displayNewestList() {
         scrollPane.setVvalue(0);
         scrollPane.setHvalue(0);
@@ -261,6 +276,8 @@ public class HomeSceneController implements Initializable {
         });
         t1.start();
     }
+
+    // Display Covid List on a borderpane
     public void displayCovidList() {
         scrollPane.setVvalue(0);
         scrollPane.setHvalue(0);
@@ -279,6 +296,8 @@ public class HomeSceneController implements Initializable {
         });
         t1.start();
     }
+
+    // Display Politics List on a borderpane
     public void displayPoliticsList() {
         scrollPane.setVvalue(0);
         scrollPane.setHvalue(0);
@@ -297,6 +316,8 @@ public class HomeSceneController implements Initializable {
         });
         t1.start();
     }
+
+    // Display Business List on a borderpane
     public void displayBusinessList() {
         scrollPane.setVvalue(0);
         scrollPane.setHvalue(0);
@@ -319,6 +340,8 @@ public class HomeSceneController implements Initializable {
         });
         t1.start();
     }
+
+    // Display Technology List on a borderpane
     public void displayTechnologyList() {
         scrollPane.setVvalue(0);
         scrollPane.setHvalue(0);
@@ -341,6 +364,8 @@ public class HomeSceneController implements Initializable {
         });
         t1.start();
     }
+
+    // Display Health List on a borderpane
     public void displayHealthList() {
         scrollPane.setVvalue(0);
         scrollPane.setHvalue(0);
@@ -363,6 +388,8 @@ public class HomeSceneController implements Initializable {
         });
         t1.start();
     }
+
+    // Display Sport List on a borderpane
     public void displaySportsList() {
         scrollPane.setVvalue(0);
         scrollPane.setHvalue(0);
@@ -385,6 +412,8 @@ public class HomeSceneController implements Initializable {
         });
         t1.start();
     }
+
+    // Display Entertainment List on a borderpane
     public void displayEntertainmentList() {
         scrollPane.setVvalue(0);
         scrollPane.setHvalue(0);
@@ -407,6 +436,8 @@ public class HomeSceneController implements Initializable {
         });
         t1.start();
     }
+
+    // Display World List on a borderpane
     public void displayWorldList() {
         scrollPane.setVvalue(0);
         scrollPane.setHvalue(0);
@@ -429,6 +460,8 @@ public class HomeSceneController implements Initializable {
         });
         t1.start();
     }
+
+    // Display Other List on a borderpane
     public void displayOthersList() {
         scrollPane.setVvalue(0);
         scrollPane.setHvalue(0);
@@ -451,6 +484,8 @@ public class HomeSceneController implements Initializable {
         });
         t1.start();
     }
+
+    // Display Search List on a borderpane
     public void search() {
         if (!searchText.isEmpty()) {
             scrollPane.setVvalue(0);
@@ -477,6 +512,7 @@ public class HomeSceneController implements Initializable {
         }
     }
 
+    // Set Articles into pages
     public Pagination setPaginationList(ArrayList<Article> articlesList, Pagination newPagination) {
         newPagination.setMaxHeight(983);
         newPagination.setMinHeight(983);
@@ -639,7 +675,7 @@ public class HomeSceneController implements Initializable {
                     }
                 }
 
-                // Set thumb image for each object
+                // Set thumbnail image for each object
                 if (k != 3 && k != 7) {
                     Image image = new Image(articlesList.get(i).getThumbnail(), 600, 0, true, true, true);
                     BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(1.0, 1.0, true, true, false, true));

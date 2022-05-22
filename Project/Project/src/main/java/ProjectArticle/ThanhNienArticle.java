@@ -1,3 +1,20 @@
+/*
+    RMIT University Vietnam
+    Course: INTE2512 Object-Oriented Programming
+    Semester: 2021B
+    Assessment: Final Project
+    Author:
+    - Pham Duy Anh - s3802674
+    - Pham Dang Khoa - s3884419
+    - Nguyen Minh Hien - s3877996
+    - Nathan Candre - s3938364
+    Acknowledgement:
+    [1]: https://jsoup.org/cookbook/extracting-data/selector-syntax
+    [2]: https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ThreadPoolExecutor.html
+    [3]: https://www.tutorialspoint.com/javafx/javafx_css.htm
+    [4]: https://www.javatpoint.com/javafx-playing-video
+    [5] All lecture and lab slides from RMIT univeristy
+*/
 package ProjectArticle;
 
 import javafx.application.Application;
@@ -22,18 +39,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class ThanhNienArticle extends Application {
-    public static String getTNArticleTime(String url) throws IOException {
-        Document doc = Jsoup.connect(url).get();
-        Elements articleDate = doc.select("div.meta span.time");
-        return articleDate.text().replace("- ", "");
-    }
-
-    public static String getTNArticleDescription(String url) throws IOException {
-        Document doc = Jsoup.connect(url).get();
-        Elements articleDescription = doc.select("div#chapeau.sapo.cms-desc");
-        return articleDescription.text();
-    }
-
     //Get the list of the newest articles
     public static ArrayList<Article> getTNArticleNewest(String url, String category) throws IOException {
         ArrayList<Article> newestList = new ArrayList<>();
@@ -61,9 +66,9 @@ public class ThanhNienArticle extends Application {
                 //Set title of article
                 newestList.get(i).setTitle(title.get(j).text());
                 //Set date of article
-                newestList.get(i).setDate(Helper.timeToUnixString2(date.get(j).text()));
+                newestList.get(i).setDate(Helper.convertTime2(date.get(j).text()));
                 //Set time duration of article
-                newestList.get(i).setDate(Helper.timeDiff(Helper.timeToUnixString2(date.get(j).text())));
+                newestList.get(i).setDate(Helper.getConvertedTimeDuration(Helper.convertTime2(date.get(j).text())));
                 //Set link to article
                 newestList.get(i).setLinkToArticle(link.get(j).text());
                 //Set thumbnail of article
@@ -88,11 +93,11 @@ public class ThanhNienArticle extends Application {
         Document doc = Jsoup.connect(url).get();
         try {
             //Find list of articles
-            Elements articles = doc.select("div.relative article.story, div.feature article.story.story--primary");
+            Elements articles = doc.select("div.relative article.story, article.story.story--primary, div.highlight article.story");
             //Find title and link of article
             Elements titleAndLink = articles.select("a.story__title");
             //Find thumbnail of article
-            Elements thumbNail = articles.select("a.story__thumb img");
+            Elements thumbNail = articles.select("img");
             //Find date of article
             Elements date = articles.select("time[rel]");
             //Find description of article
@@ -116,9 +121,9 @@ public class ThanhNienArticle extends Application {
                 dateTemp = String.valueOf(dateTemp0);
                 thanhnienArticleList.get(i).setDate(dateTemp);
                 // Add time duration
-                thanhnienArticleList.get(i).setTimeDuration(Helper.timeDiff(dateTemp));
+                thanhnienArticleList.get(i).setTimeDuration(Helper.getConvertedTimeDuration(dateTemp));
                 // Add thumbnail
-                if (thumbNail.get(i).hasAttr("data-src"))
+                if (thumbNail.get(j).attr("data-src").isEmpty())
                     thanhnienArticleList.get(i).setThumbnail(thumbNail.get(j).attr("abs:data-src"));
                 else {
                     thanhnienArticleList.get(i).setThumbnail(thumbNail.get(j).attr("abs:src"));
@@ -129,9 +134,6 @@ public class ThanhNienArticle extends Application {
                 thanhnienArticleList.get(i).setLinkToArticle(titleAndLink.get(j).attr("abs:href"));
             }
         }
-        catch (Selector.SelectorParseException e) {
-            return null;
-        }
         catch (IndexOutOfBoundsException e) {
             thanhnienArticleList.remove(thanhnienArticleList.size()-1);
         }
@@ -139,7 +141,6 @@ public class ThanhNienArticle extends Application {
     }
 
     public static ArrayList<Article> getListOfSearchTNArticle(String keyword, String category) throws IOException {
-        final int MAX_ARTICLES = 50;
         ArrayList<Article> listOfSearchArticle = new ArrayList<>();
 
         String convertedKeyword = "https://thanhnien.vn/tim-kiem/?q=" + keyword.trim().replaceAll("\\s", "%20").toLowerCase();
@@ -169,9 +170,9 @@ public class ThanhNienArticle extends Application {
                 // Add category
                 listOfSearchArticle.get(i).setCategory(category);
                 // Add date&time
-                listOfSearchArticle.get(i).setDate(Helper.timeToUnixString5(date.get(j).text()));
+                listOfSearchArticle.get(i).setDate(Helper.convertTime3(date.get(j).text()));
                 // Add time duration
-                listOfSearchArticle.get(i).setTimeDuration(Helper.timeDiff(Helper.timeToUnixString5(date.get(j).text())));
+                listOfSearchArticle.get(i).setTimeDuration(Helper.getConvertedTimeDuration(Helper.convertTime3(date.get(j).text())));
                 // Add thumbnail
                 if (thumbNail.get(i).hasAttr("data-src"))
                     listOfSearchArticle.get(i).setThumbnail(thumbNail.get(j).attr("abs:data-src"));
@@ -352,19 +353,22 @@ public class ThanhNienArticle extends Application {
                     vbox.getChildren().addAll(photoView, skipLine(1), photoCationHBox);
                 }
 
-                if (part.hasText() && !part.hasClass("picture") && !part.hasClass("video") && !part.parent().hasClass("caption") && !part.parent().hasClass("source")) {
-                    // Normal text for paragraphs  (Color: WHITE, Font: Times New Roman, FontWeight: NORMAL, FontPosture: REGULAR, Size: 20)
-                    Text paragraph = new Text("     " + part.text());
-                    paragraph.setFill(Color.WHITE);
-                    paragraph.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.REGULAR, 20));
-                    // Text flow for paragraphs
-                    TextFlow paragraphTextFlow = new TextFlow(paragraph);
-                    // HBox for text flow
-                    HBox paragraphHBox = new HBox(paragraphTextFlow);
-                    paragraphHBox.setAlignment(Pos.BASELINE_LEFT);
-                    paragraphHBox.setMaxSize(1000, 1000);
-                    // Add to VBox
-                    vbox.getChildren().add(paragraphHBox);
+                if (part.hasText() && !part.hasClass("picture") && !part.hasClass("video")) {
+                    assert part.parent() != null;
+                    if (!part.parent().hasClass("caption") && !part.parent().hasClass("source")) {
+                        // Normal text for paragraphs  (Color: WHITE, Font: Times New Roman, FontWeight: NORMAL, FontPosture: REGULAR, Size: 20)
+                        Text paragraph = new Text("     " + part.text());
+                        paragraph.setFill(Color.WHITE);
+                        paragraph.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.REGULAR, 20));
+                        // Text flow for paragraphs
+                        TextFlow paragraphTextFlow = new TextFlow(paragraph);
+                        // HBox for text flow
+                        HBox paragraphHBox = new HBox(paragraphTextFlow);
+                        paragraphHBox.setAlignment(Pos.BASELINE_LEFT);
+                        paragraphHBox.setMaxSize(1000, 1000);
+                        // Add to VBox
+                        vbox.getChildren().add(paragraphHBox);
+                    }
                 }
             }
 

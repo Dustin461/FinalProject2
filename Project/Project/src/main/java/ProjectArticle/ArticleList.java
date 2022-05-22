@@ -1,3 +1,20 @@
+/*
+    RMIT University Vietnam
+    Course: INTE2512 Object-Oriented Programming
+    Semester: 2021B
+    Assessment: Final Project
+    Author:
+    - Pham Duy Anh - s3802674
+    - Pham Dang Khoa - s3884419
+    - Nguyen Minh Hien - s3877996
+    - Nathan Candre - s3938364
+    Acknowledgement:
+    [1]: https://jsoup.org/cookbook/extracting-data/selector-syntax
+    [2]: https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ThreadPoolExecutor.html
+    [3]: https://www.tutorialspoint.com/javafx/javafx_css.htm
+    [4]: https://www.javatpoint.com/javafx-playing-video
+    [5] All lecture and lab slides from RMIT univeristy
+*/
 package ProjectArticle;
 
 import java.util.ArrayList;
@@ -192,7 +209,6 @@ public class ArticleList {
     es.execute(() -> {
       zingCovidList.clear();
       try {
-        //ZingNews doesn't have Covid Category
         zingCovidList = ZingArticle.getListOfSearchZingArticle("covid", "Covid");
         HomeSceneController.progressBar.setProgress(HomeSceneController.progressBar.getProgress() + 0.2);
       } catch (IOException e) {
@@ -205,6 +221,8 @@ public class ArticleList {
       vnexpressCovidList.clear();
       try {
         vnexpressCovidList = VnExpressArticle.getVnExpressArticleList("https://vnexpress.net/covid-19/tin-tuc", "Covid");
+        vnexpressWorldList.addAll(VnExpressArticle.getVnExpressArticleList("https://vnexpress.net/covid-19/tin-tuc-p2", "Covid"));
+        vnexpressWorldList.addAll(VnExpressArticle.getVnExpressArticleList("https://vnexpress.net/covid-19/tin-tuc-p3", "Covid"));
         HomeSceneController.progressBar.setProgress(HomeSceneController.progressBar.getProgress() + 0.2);
       } catch (IOException e) {
         e.printStackTrace();
@@ -444,7 +462,6 @@ public class ArticleList {
       thanhNienTechnologyList.clear();
       try {
         thanhNienTechnologyList = ThanhNienArticle.getListOfElementsInTN("https://thanhnien.vn/cong-nghe-game/", "Technology");
-        assert thanhNienTechnologyList != null;
         thanhNienTechnologyList.addAll(ThanhNienArticle.getListOfSearchTNArticle("blockchain", "Technology"));
         thanhNienTechnologyList.addAll(ThanhNienArticle.getListOfSearchTNArticle("esport", "Technology"));
         HomeSceneController.progressBar.setProgress(HomeSceneController.progressBar.getProgress() + 0.2);
@@ -527,7 +544,6 @@ public class ArticleList {
         // Main category
         thanhNienHealthList = ThanhNienArticle.getListOfElementsInTN("https://thanhnien.vn/suc-khoe/", "Health");
         // Sub-categories
-        assert thanhNienHealthList != null;
         thanhNienHealthList.addAll(ThanhNienArticle.getListOfElementsInTN("https://thanhnien.vn/suc-khoe/lam-dep/", "Health"));
         thanhNienHealthList.addAll(ThanhNienArticle.getListOfElementsInTN("https://thanhnien.vn/suc-khoe/gioi-tinh/", "Health"));
         thanhNienHealthList.addAll(ThanhNienArticle.getListOfElementsInTN("https://thanhnien.vn/suc-khoe/khoe-dep-moi-ngay/", "Health"));
@@ -611,7 +627,6 @@ public class ArticleList {
         // Main category
         thanhNienSportsList = ThanhNienArticle.getListOfElementsInTN("https://thanhnien.vn/the-thao/", "Sport");
         // Syb-categories
-        assert thanhNienSportsList != null;
         thanhNienSportsList.addAll(ThanhNienArticle.getListOfElementsInTN("https://thanhnien.vn/the-thao/bong-da-viet-nam/", "Sport"));
         thanhNienSportsList.addAll(ThanhNienArticle.getListOfElementsInTN("https://thanhnien.vn/the-thao/bong-da-quoc-te/", "Sport"));
         thanhNienSportsList.addAll(ThanhNienArticle.getListOfElementsInTN("https://thanhnien.vn/the-thao/bong-ro/", "Sport"));
@@ -698,7 +713,6 @@ public class ArticleList {
         // Main category
         thanhNienEntertainmentList = ThanhNienArticle.getListOfElementsInTN("https://thanhnien.vn/giai-tri/", "Entertainment");
         // Sub-categories
-        assert thanhNienEntertainmentList != null;
         thanhNienEntertainmentList.addAll(ThanhNienArticle.getListOfElementsInTN("https://thanhnien.vn/giai-tri/phim/", "Entertainment"));
         thanhNienEntertainmentList.addAll(ThanhNienArticle.getListOfElementsInTN("https://thanhnien.vn/giai-tri/truyen-hinh/", "Entertainment"));
         thanhNienEntertainmentList.addAll(ThanhNienArticle.getListOfElementsInTN("https://thanhnien.vn/giai-tri/doi-nghe-si/", "Entertainment"));
@@ -784,7 +798,6 @@ public class ArticleList {
         // Main category
         thanhNienWorldList = ThanhNienArticle.getListOfElementsInTN("https://thanhnien.vn/the-gioi/", "World");
         // Sub-categories
-        assert thanhNienWorldList != null;
         thanhNienWorldList.addAll(ThanhNienArticle.getListOfElementsInTN("https://thanhnien.vn/the-gioi/kinh-te-the-gioi/", "World"));
         thanhNienWorldList.addAll(ThanhNienArticle.getListOfElementsInTN("https://thanhnien.vn/the-gioi/quan-su/", "World"));
         thanhNienWorldList.addAll(ThanhNienArticle.getListOfElementsInTN("https://thanhnien.vn/the-gioi/goc-nhin/", "World"));
@@ -863,7 +876,6 @@ public class ArticleList {
       thanhNienOthersList.clear();
       try {
         thanhNienOthersList = ThanhNienArticle.getListOfElementsInTN("https://thanhnien.vn/van-hoa/", "Others");
-        assert thanhNienOthersList != null;
         thanhNienOthersList.addAll(ThanhNienArticle.getListOfElementsInTN("https://thanhnien.vn/doi-song/", "Others"));
         thanhNienOthersList.addAll(ThanhNienArticle.getListOfElementsInTN("https://thanhnien.vn/giao-duc/", "Others"));
         thanhNienOthersList.addAll(ThanhNienArticle.getListOfElementsInTN("https://thanhnien.vn/ban-doc/", "Others"));
@@ -966,11 +978,12 @@ public class ArticleList {
       System.out.println("There is nothing to show try-catch (search list: zero element)");
     }
   }
-
+  //Sort article by time
   public static void sortList(ArrayList<Article> list) {
     list.sort((o1, o2) -> o2.getDate().compareTo(o1.getDate()));
   }
 
+  //remove duplicate articles
   public static void removeDuplicateArticle(ArrayList<Article> list) {
     HashSet<String> hashSet = new HashSet<>();
     ArrayList<Article> toRemove = new ArrayList<>();
@@ -998,8 +1011,23 @@ public class ArticleList {
     return sortedArticles;
   }
 
+  //Test
   public static void main(String[] args) throws IOException {
-    getNewestList();
+    vnexpressNewestList = VnExpressArticle.getVnExpressArticleNewest("https://vnexpress.net/rss/tin-moi-nhat.rss", "Newest");
+    newestList.addAll(vnexpressNewestList);
+    int k = 1;
+    for (Article i : newestList) {
+      System.out.println(k + ":");
+      System.out.println("Source: " + i.getSource());
+      System.out.println("Title: " + i.getTitle());
+      System.out.println("Thumbnail: " + i.getThumbnail());
+      System.out.println("Category: " + i.getCategory());
+      System.out.println("Date: " + i.getDate());
+      System.out.println("Age: " + i.getTimeDuration());
+      System.out.println("Description: " + i.getDescription());
+      System.out.println();
+      k++;
+    }
   }
 
 
